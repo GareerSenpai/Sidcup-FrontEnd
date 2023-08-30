@@ -1,0 +1,920 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  /* overflow-x: hidden; */
+  font-family: 'Montserrat', sans-serif;
+}
+
+.main {
+  position: relative;
+  overflow-x: hidden;
+
+  /*Creating a site wrapper div inside the <body> and applying the overflow-x:hidden to the wrapper instead of the <body> or <html>
+  It appears that browsers that parse the <meta name="viewport"> tag simply ignore overflow attributes on the html and body tags.
+  Note: You may also need to add position: relative to the wrapper div.*/
+
+  /* It is necessary otherwise unexpected bugs arise on scrolling and other stuff. Plus if not done, it can lead to more media query issues */
+
+  background-color: rgba(0,0,0,0.35);
+  height: 100vh;
+}
+
+.cursor {
+  background-color: #95C11E;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 50%;
+  position: fixed;
+  z-index: 99;
+  pointer-events: none;
+}
+
+.blur-cursor {
+  background-color: #95C11E;
+  height: 15rem;
+  width: 15rem;
+  border-radius: 50%;
+  position: fixed;
+  z-index: 0;
+  filter: blur(100px);
+  pointer-events: none;
+}
+
+/* -----------------------------------navbar---------------------------- */
+
+.nav {
+  position: fixed;
+  width: 98.9vw;    /* 99 instead of 100 to leave some space for the scrollbar to get selected... will find better sol later */
+  height: 150px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 60px;
+  padding-left: 100px;
+  padding-top: 20px;
+  padding-bottom: 70px;
+  z-index: 10;
+}
+
+.nav span {
+  /* padding-top: 20px; */
+  position: relative;
+  z-index: 1;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: #fff;
+  transition: color 150ms;
+}
+
+.nav span:hover {
+  color: #000;
+  cursor: pointer;
+}
+
+.nav img {
+  position: relative;
+  /* top: 10px;
+  left: 20px; */
+  width: 95px;
+  object-fit: cover;
+  transition: transform 100ms;
+}
+
+.nav span:has(img) {
+  position: relative;
+  top:10px;
+  left: 20px;
+}
+
+.nav img:hover, .page-9 .icons img:hover {
+  transform: scale(0.9);
+  cursor: pointer;
+}
+
+.nav-active {
+  z-index: 10;
+}
+
+.nav-active span:hover {
+  color: #95C11E;
+}
+
+.page-1 {
+  height: 100vh;
+  width: 100vw;
+}
+
+.page-1 video {
+  position: fixed;
+  z-index: -1;
+}
+
+@keyframes active {
+  from {
+    background-color: #95C11E;
+    top: 0;
+    left: 0;
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+
+  to {
+    top: -20px;
+    left: -30px;
+    height: 4.5rem;
+    width: 4.5rem;
+    border: 2px solid #fff;
+    background-color: transparent;
+  }
+}
+
+@keyframes inactive {
+  from {
+    top: -20px;
+    left: -30px;
+    height: 4.5rem;
+    width: 4.5rem;
+    border: 2px solid #fff;
+    background-color: transparent;
+  }
+
+  to {
+    background-color: #95C11E;
+    top: 0;
+    left: 0;
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+}
+
+.home-info {
+  position: relative;
+  height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  font-family: 'Montserrat', sans-serif;
+  top: 80px;
+}
+
+.home-heading {
+  position: relative;
+  text-align: center;
+  font-size: 70px;
+  width: 80%;
+  font-family: inherit;
+  letter-spacing: 2px;
+  line-height: 0.9;
+  padding-bottom: 10px;
+}
+
+.home-heading .front-layer {
+  font-weight: 900;
+  position: relative;
+  color: #fff;
+}
+
+.home-heading .back-layer {
+  font-weight: 900;
+  position: absolute;
+  top: -5px;
+  left: -10px;
+  -webkit-text-stroke: 1px #95C11E;
+}
+
+.home-subheading {
+  color: #fff;
+  font-size: 30px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.home-desc {
+  font-size: 20px;
+  color: #fff;
+  text-align: center;
+  width: 47%;
+}
+
+/* ----------------------Page 2------------------------------ */
+
+.page-2 {
+  height: 85vh;
+  position: relative;
+  background-color: transparent;
+}
+
+.infinite-wrapper {
+  height: 150px;
+  position: relative;
+  font-size: 120px;
+  white-space: nowrap;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.infinite-wrapper .marquee-1{
+  position: absolute;
+  animation: go-left 30s linear infinite;
+}
+
+.infinite-wrapper .marquee-2 {
+  position: absolute;
+  top: 0;
+  animation: go-right 30s linear infinite;
+}
+
+.infinite-wrapper .marquee-1, .infinite-wrapper .marquee-2 {
+  padding: 0 15px;
+}
+
+.infinite-text.back {
+  -webkit-text-stroke: 2px #fff;
+}
+
+.infinite-text.front {
+  /* pointer-events: none; */
+  position: absolute;
+  top: 0;
+}
+
+@keyframes go-left {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes go-right {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.infinite-text.front span {
+  transition: color 200ms;
+}
+
+.infinite-text.front span:hover {
+  cursor: pointer;
+  color: #95C11E;
+}
+
+.container-about {
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 80px 120px;
+}
+
+.card-left {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+}
+
+.card-left img, .card-right img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.card-right {
+  width: 150px;
+  height: 200px;
+  border-radius: 10px;
+}
+.about-us {
+  width: 50vw;
+  padding: 10px;
+  text-align: center;
+}
+
+.about-us h2{
+  font-size: 50px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 3;
+}
+
+.about-us p{
+  font-size: 20px;
+  color: white;
+  line-height: 1.7;
+}
+
+/* ---------------------------- PAGE - 3 ----------------------------*/
+
+.page-3 {
+  width: 100vw;
+  height: 110vh;
+  background: #000;
+  padding-top: 50px;
+}
+
+.card-section {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 90px;
+}
+.darken {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.2);
+  pointer-events: none;
+}
+
+.page-3 .card-section .card {
+  position: relative;
+  width: 400px;
+  height: 580px;
+  margin: 0 30px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.page-3 .card-section .dot-pattern {
+  position: absolute;
+  top: 4%;
+  left: 7%;
+  width: 180px;
+  height: 120px;
+}
+
+.page-3 .card-section .card img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  transition: scale 800ms ease;
+}
+
+.page-3 .card > h1, .page-3 .card h3 {
+  position: absolute;
+  z-index: 1;
+  bottom: 5%;
+  left: 6%;
+  font-weight: 900;
+  color: #f7f2f2;
+  font-size: 45px;
+}
+
+.page-3 .card h3 {
+  font-size: 20px;
+  bottom: 25%;
+  left: 7%;
+}
+
+.page-3 .card-overlay {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background-color: #95C11E;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  padding: 120px 30px 10px;
+  opacity: 0;
+  transition: opacity ease 400ms;
+}
+
+.page-3 .card-overlay h1 {
+  font-size: 42px;
+  font-weight: 900;
+  padding-bottom: 20px;
+}
+
+.page-3 .card-overlay p {
+  font-size: 20px;
+}
+
+.page-3 .card-overlay:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.page-3 .card-overlay .link {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid black;
+  background-color: transparent;
+  position: absolute;
+  z-index: 1;
+  top: -25px;
+  right: -25px;
+  transition: scale 400ms ease, background-color 300ms ease;
+}
+
+.page-3 .card-overlay:hover .link,
+.page-3 .card-overlay:hover .link i {
+  scale: 1.2;
+}
+
+.page-3 .card-overlay .link:hover {
+  background-color: #fff;
+}
+
+.page-3 .link i {
+  position: relative;
+  top: 40px;
+  left: 40px;
+}
+
+.page-3 .link:hover i {
+  color: #95C11E;
+}
+
+.page-3 .card:hover img {       /* cannot understand how card is even getting hovered when card-ovelay has pos abs with z-index: 1  */
+  scale: 1.1;
+}
+
+/* ---------------------------- PAGE-4 ------------------------------- */
+
+.page-4 {
+  width: 100vw;
+  height: 45vh;
+}
+
+.page-4 .container {
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to top right, #B2E724, #3AAA32);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  padding-left: 10px;
+}
+
+.page-4 h4 {
+  width: 50%;
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 1.5;
+}
+
+.dotted, .dotted {
+  width: 10%;
+  height: 100%;
+  transform: rotateZ(180deg);
+  opacity: 0.5;
+}
+
+.dotted.right {
+  transform: rotateZ(0deg);
+}
+
+.dotted img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  scale: 1.3;
+}
+
+
+/*  --------------------- PAGE - 5 -----------------------  */
+
+.page-5 {
+  width: 100vw;
+  height: 100vh;
+  background-color: inherit;
+}
+
+.page-5 .container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  gap: 2rem;
+  padding: 100px;
+}
+
+.page-5 .image-box {
+  display: flex;
+  flex-direction: column;
+  width: 660px;
+  height: 500px;
+  border-radius: 3%;
+  gap: 40px;
+  position: relative;
+  user-select: none;
+}
+
+.image-box .dotted {
+  position: absolute;
+  bottom: -1.5rem;
+  width: 25%;
+  height: 30%;
+  rotate: 180deg;
+}
+
+.image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 3%;
+}
+
+.image-box .food-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 3%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 500ms linear;
+}
+
+.food-img.img-1 {
+  opacity: 1;
+}
+
+/* .active-img {
+  position: absolute;
+  top: 0;
+} */
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+}
+
+.buttons .btn {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: #fff;
+  transition: background-color 300ms linear;
+  position: relative;
+}
+
+.buttons .btn-1 {
+  background-color: #95C11E;
+}
+
+.btn-border {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  border: 2px solid #95C11E;
+  position: absolute;
+  left: -0.4rem;
+  top: -0.4rem;
+  scale: 0;
+  transition: scale 300ms linear;
+}
+
+.btn-1 .btn-border {
+  scale: 1.3;
+}
+
+.buttons .btn:hover {
+  cursor: pointer;
+}
+
+.page-5 .text-box {
+  width: 600px;
+  height: 500px;
+  border-radius: 4%;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  padding: 40px 20px;
+  /* background-color: blue; */
+}
+
+.page-5 .text-box .info {
+  width: 92%;
+}
+
+.page-5 .text-box h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  margin-bottom: 2.5rem;
+}
+
+.page-5 .text-box p {
+  font-size: 1.25rem;
+  line-height: 1.9;
+}
+
+/* ---------------------------- PAGE - 6 -------------------------------- */
+
+.page-6 {
+  width: 100vw;
+  height: 70vh;
+  background-color: #000;
+}
+
+.infinite-cards {
+  white-space: nowrap;
+  position: relative;
+  user-select: none;
+  rotate: -2deg;
+  z-index: 1;
+}
+
+.infi-card {
+  display: inline-block;
+  width: 15rem;
+  height: 18rem;
+  border-radius: 4%;
+  margin: 0 1rem;
+  cursor: pointer;
+}
+
+.infi-card img {
+  width: 100%;
+  height: 100%;
+  border-radius: 4%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.infinite-cards .marquee-1 {
+  position: absolute;
+  animation: go-left 30s linear infinite;
+}
+
+.infinite-cards .marquee-2 {
+  position: absolute;
+  top: 0;
+  animation: go-right 30s linear infinite;
+}
+
+/* ----------------------- PAGE - 7 ----------------------------- */
+
+.page-7 {
+  width: 100vw;
+  background-color: #000;
+}
+
+.page-7 .container {
+  margin: 0 auto;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 100px;
+}
+
+.page-7 .quote {
+  width: 90%;
+  padding: 100px;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 1.5;
+  position: relative;
+  user-select: none;
+}
+
+.page-7 .review {
+  display: flex;
+  width: 850px;
+  height: 350px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.page-7 .review p:not(:first-child) {
+  position: absolute;
+  opacity: 0;
+}
+
+.page-7 .review p {
+  transition: transform 300ms ease-out, opacity 500ms linear;
+}
+
+.dquote {
+  width: 5%;
+  position: absolute;
+}
+
+.left-dquote {
+  top: -10px;
+  left: -10px;
+}
+
+.right-dquote {
+  bottom: -10px;
+  right: -10px;
+}
+
+/* ------------------------- PAGE - 8 ---------------------------- */
+
+.page-8 {
+  width: 100vw;
+  padding-top: 100px;
+  background-color: #000;
+}
+
+.page-8 .container {
+  width: 80%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.page-8 .cards-section {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 80px;
+  gap: 30px;
+}
+
+.page-8 .card {
+  width: 35%;
+  max-height: 160px;
+  background-color: #95C11E;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  transition: color 300ms linear;
+}
+
+.page-8 .card img {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  object-fit: cover;
+  opacity: 0;
+  scale: 1.1;
+  transition: opacity 300ms linear, scale 300ms linear;
+}
+
+.page-8 .darken {
+  background-color: rgba(0,0,0,0);
+}
+
+.page-8 .card:hover {
+  color: #fff;
+}
+
+.page-8 .card:hover img  {
+  scale: 1;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.page-8 .card:hover .darken {
+  background-color: rgba(0,0,0,0.2);
+}
+
+.page-8 .card h3 {
+  text-align: center;
+  top: 50%;
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  width: 100%;
+  padding: 0 10px;
+  pointer-events: none;
+}
+
+.page-8 .floating {
+  color: transparent;
+  font-family: "serif";
+  position: absolute;
+  /* top: -100px; */
+  font-size: 2.5vw;
+  -webkit-text-stroke: 1px #fff;
+  transition: -wekit-text-stroke 150ms linear;
+}
+
+/* ---------------------------- PAGE - 9 --------------------------- */
+
+.page-9 {
+  width: 100vw;
+  background-color: #95C11E;
+}
+
+.page-9 .container {
+  margin: 0 auto;
+  width: 80%;
+  /* background-color: blue; */
+  display: flex;
+  flex-direction: column;
+}
+
+.page-9 .footer-top {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.page-9 .item {
+  width: 25%;
+  /* background-color: red; */
+  padding: 90px 0;
+}
+
+.page-9 .icons {
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.page-9 .icons img {
+  width: 100%;
+  position: relative;
+}
+
+.page-9 .social-icons {
+  padding-top: 50px;
+}
+
+.page-9 .social-icons i {
+  padding-right: 5px;
+  transition: color 150ms linear;
+}
+
+.page-9 .social-icons i:hover,
+.page-9 .contacts .telephone-no:hover,
+.page-9 .topic-list h3:hover,
+.page-9 .contacts h4:hover,
+.page-9 .footer-bottom span:hover {
+  color: white !important;
+  cursor: pointer;
+}
+
+.page-9 .topic-list {
+  width: 50%;
+  margin-right: 20px;
+}
+
+.page-9 .topic-list h3 {
+  font-size: 2rem;
+  font-weight: 900;
+  padding: 4px 0 0 10px;
+  transition: color 150ms linear;
+}
+
+.page-9 .contacts p{
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.page-9 .contacts .tele-part {
+  padding-bottom: 5px;
+  transition: color 150ms linear;
+}
+
+.page-9 .contacts h4 {
+  font-weight: 900;
+  font-size: 1.3rem;
+  transition: color 150ms linear;
+}
+
+.page-9 .footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.page-9 .footer-bottom p {
+  display: inline-block;
+  font-size: 100%;
+}
+
+.page-9 .logo {
+  display: inline-block;
+  width: 70%;
+}
