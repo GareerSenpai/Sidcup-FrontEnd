@@ -1,2 +1,3 @@
 # Sidcup-FrontEnd
-FrontEnd Project
+FrontEnd Project (unfinished)
+Link: https://gareersenpai.github.io/Sidcup-FrontEnd/
